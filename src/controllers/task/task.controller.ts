@@ -33,4 +33,20 @@ export default class TaskController {
 
         return res.status(201).json(task)
     }
+
+    static async delete(req: Request, res: Response) {
+        const { id } = req.params
+
+        if(!id || isNaN(Number(id))) {
+            return res.status(400).json({ error: 'O id é obrigatório' })
+        }
+
+        const task = await Task.findOneBy({id: Number(id)})
+        if (!task) {
+            return res.status(404).json({ error: 'Task não encontrada' })
+        }
+
+        await task.remove()
+        return res.status(204).json() // Vamos retornar 204 pois não temos conteúdo para retornar
+    }
 }
