@@ -1,5 +1,8 @@
 import { join } from 'path';
 import { DataSource } from 'typeorm'
+import dotenv from 'dotenv'
+
+dotenv.config() // carrega as variáveis de ambiente do arquivo .env
 
 const dataBase = new DataSource({
     type: 'sqlite',
